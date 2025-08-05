@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>午间重启舱 | 科学午休解决方案</title>
+    <style>
+        /* 苹果风核心变量 - 白色主题 */
+        :root {
+            --pure-white: #ffffff;
+            --light-gray: #f5f5f7;
+            --medium-gray: #e2e2e9;
+            --dark-gray: #86868b;
+            --text-dark: #1d1d1f;
+            --neuro-blue: #0071e3;
+            --calm-green: #30d158;
+            --accent-purple: #bf5af2;
+            --type-heading: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            --type-body: 'SF Pro Text', -apple-system, sans-serif;
+        }
+        
+        /* 重置与基础 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--pure-white);
+            color: var(--text-dark);
+            font-family: var(--type-body);
+            line-height: 1.5;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* 脉动光晕动画 */
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(3deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(1.05); }
+            100% { opacity: 0.8; transform: scale(1); }
+        }
+        
+        /* 英雄区 */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5%;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #f5f5f7, #ffffff);
+        }
+        .hero-content {
+            max-width: 900px;
+            z-index: 2;
+        }
+        h1 {
+            font-family: var(--type-heading);
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+        .subtitle {
+            font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: var(--dark-gray);
+            font-weight: 400;
+        }
+        
+        /* 动态元素 */
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            z-index: 1;
+            animation: float 12s infinite ease-in-out;
+        }
+        .element-1 {
+            width: 400px;
+            height: 400px;
+            background: rgba(0, 113, 227, 0.08);
+            top: 10%;
+            left: 10%;
+            animation-duration: 18s;
+        }
+        .element-2 {
+            width: 300px;
+            height: 300px;
+            background: rgba(191, 90, 242, 0.06);
+            bottom: 15%;
+            right: 15%;
+            animation-duration: 15s;
+        }
+        .element-3 {
+            width: 250px;
+            height: 250px;
+            background: rgba(48, 209, 88, 0.05);
+            top: 40%;
+            right: 20%;
+            animation-duration: 20s;
+        }
+        
+        /* 价值卡片 */
+        .section-title {
+            text-align: center;
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 600;
+            margin: 6rem auto 4rem;
+            max-width: 800px;
+            padding: 0 5%;
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto 8rem;
+            padding: 0 5%;
+        }
+        .card {
+            background: var(--pure-white);
+            border-radius: 30px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 1px solid var(--medium-gray);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        }
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--light-gray);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        .card h3 {
+            font-family: var(--type-heading);
+            font-size: 1.75rem;
+            margin: 0 0 1rem;
+            font-weight: 600;
+        }
+        .card p {
+            color: var(--dark-gray);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        .tag {
+            display: inline-block;
+            background: rgba(0, 113, 227, 0.08);
+            color: var(--neuro-blue);
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        /* 时间线 */
+        .timeline {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto 8rem;
+            padding: 0 5%;
+            gap: 1.5rem;
+        }
+        .phase {
+            flex: 1;
+            padding: 2.5rem 2rem;
+            border-radius: 24px;
+            background: var(--pure-white);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 1px solid var(--medium-gray);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .phase::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--color);
+        }
+        .phase em {
+            display: block;
+            font-size: 1.25rem;
+            font-style: normal;
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+        }
+        .phase h4 {
+            font-family: var(--type-heading);
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        .phase p {
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+        
+        /* CTA按钮 */
+        .cta-section {
+            text-align: center;
+            margin: 6rem auto 10rem;
+            max-width: 600px;
+            padding: 0 5%;
+        }
+        .cta-button {
+            display: inline-block;
+            background: var(--text-dark);
+            color: white;
+            font-family: var(--type-heading);
+            font-size: 1.25rem;
+            font-weight: 600;
+            padding: 1.25rem 3rem;
+            border-radius: 14px;
+            text-decoration: none;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s;
+            border: 1px solid var(--text-dark);
+        }
+        .cta-button:hover {
+            background: var(--pure-white);
+            color: var(--text-dark);
+        }
+        .cta-button span {
+            display: block;
+            font-size: 1rem;
+            font-weight: 400;
+            margin-top: 0.5rem;
+            opacity: 0.8;
+        }
+        .small {
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+        
+        /* 多语言支持 */
+        .languages {
+            max-width: 800px;
+            margin: 0 auto 8rem;
+            padding: 0 5%;
+            text-align: center;
+        }
+        .languages h2 {
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+        .language-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .language {
+            padding: 0.8rem 1.5rem;
+            background: var(--light-gray);
+            border-radius: 100px;
+            font-size: 1.1rem;
+        }
+        
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 5rem 0 3rem;
+            border-top: 1px solid var(--medium-gray);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        footer p {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            line-height: 1.3;
+        }
+        .copyright {
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .timeline {
+                flex-direction: column;
+            }
+            .hero {
+                height: auto;
+                padding: 8rem 5% 6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 英雄区 -->
+    <section class="hero">
+        <div class="floating-element element-1"></div>
+        <div class="floating-element element-2"></div>
+        <div class="floating-element element-3"></div>
+        
+        <div class="hero-content">
+            <h1>午休，<br>重新定义</h1>
+            <p class="subtitle">30分钟科学声场体验，让您的午休成为高效恢复的精密系统</p>
+            <a href="#" class="cta-button">
+                体验明日科技
+                <span>首周预约享特别权益</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- 价值主张 -->
+    <h2 class="section-title">精密设计的恢复体验</h2>
+    
+    <div class="card-grid">
+        <div class="card">
+            <div class="card-icon">💤</div>
+            <h3>深度神经放松</h3>
+            <p>专利声场引导技术，8分钟内帮助大脑进入深度修复状态，优化脑波频率</p>
+            <span class="tag">临床验证效果</span>
+        </div>
+        <div class="card">
+            <div class="card-icon">🔄</div>
+            <h3>无缝恢复流程</h3>
+            <p>从放松到唤醒的精密时序控制，消除传统午休后的昏沉感</p>
+            <span class="tag">自然过渡设计</span>
+        </div>
+        <div class="card">
+            <div class="card-icon">🌍</div>
+            <h3>全球适用体验</h3>
+            <p>支持多语言引导系统，适应不同文化背景的恢复需求</p>
+            <span class="tag">17种语言可选</span>
+        </div>
+    </div>
+
+    <!-- 时间线 -->
+    <h2 class="section-title">30分钟精密旅程</h2>
+    
+    <div class="timeline">
+        <div class="phase" style="--color: var(--neuro-blue);"> 
+            <em>05:00</em>
+            <h4>神经解耦</h4>
+            <p>渐进式引导技术，快速释放工作压力，为深度休息做准备</p>
+        </div>
+        <div class="phase" style="--color: var(--accent-purple);"> 
+            <em>20:00</em>
+            <h4>核心修复</h4>
+            <p>优化声场环境，促进生理恢复与心理重置</p>
+        </div>
+        <div class="phase" style="--color: var(--calm-green);"> 
+            <em>05:00</em>
+            <h4>动能唤醒</h4>
+            <p>渐进式激活流程，恢复身体活力与思维清晰度</p>
+        </div>
+    </div>
+    
+    <!-- 多语言支持 -->
+    <div class="languages">
+        <h2>全球适用体验</h2>
+        <p>支持多语言引导系统，确保每位用户获得母语级的恢复体验</p>
+        <div class="language-list">
+            <div class="language">中文</div>
+            <div class="language">English</div>
+            <div class="language">日本語</div>
+            <div class="language">Español</div>
+            <div class="language">Deutsch</div>
+            <div class="language">Français</div>
+            <div class="language">한국어</div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+        <a href="#" class="cta-button">
+            开启科学午休
+            <span>限量预约进行中</span>
+        </a>
+        <p class="small">适用于企业团队与个人用户</p>
+    </div>
+    
+    <!-- 页脚 -->
+    <footer>
+        <p>"将精密科学注入<br>每日的休憩时刻"</p>
+        <p class="copyright">午间重启舱 © 2025 | 科学恢复系统</p>
+    </footer>
+
+    <script>
+        // 增强浮动效果
+        document.addEventListener('DOMContentLoaded', () => {
+            // 创建更多浮动元素
+            for (let i = 0; i < 5; i++) {
+                const element = document.createElement('div');
+                element.classList.add('floating-element');
+                
+                // 随机位置和大小
+                const size = Math.random() * 100 + 100;
+                element.style.width = `${size}px`;
+                element.style.height = `${size}px`;
+                
+                // 随机位置
+                element.style.left = `${Math.random() * 100}%`;
+                element.style.top = `${Math.random() * 100}%`;
+                
+                // 随机颜色
+                const colors = [
+                    'rgba(0, 113, 227, 0.05)',
+                    'rgba(191, 90, 242, 0.04)',
+                    'rgba(48, 209, 88, 0.03)'
+                ];
+                element.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                // 随机动画参数
+                element.style.animationDuration = `${Math.random() * 10 + 15}s`;
+                element.style.animationDelay = `${Math.random() * 5}s`;
+                
+                document.querySelector('.hero').appendChild(element);
+            }
+            
+            // 卡片悬停效果
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${(rect.height/2 - y)/40}deg) rotateY(${(x - rect.width/2)/40}deg) translateY(-10px)`;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
