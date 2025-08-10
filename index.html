@@ -37,12 +37,6 @@
             100% { transform: translateY(0) rotate(0deg); }
         }
         
-        @keyframes pulse {
-            0% { opacity: 0.8; transform: scale(1); }
-            50% { opacity: 0.3; transform: scale(1.05); }
-            100% { opacity: 0.8; transform: scale(1); }
-        }
-        
         /* 英雄区 */
         .hero {
             height: 100vh;
@@ -170,7 +164,7 @@
             font-weight: 500;
         }
         
-        /* 时间线 - 修改后 */
+        /* 时间线 */
         .timeline {
             display: flex;
             max-width: 1200px;
@@ -272,6 +266,217 @@
             font-size: 1.1rem;
         }
         
+        /* 新闻报道部分 */
+        .news-section {
+            max-width: 1200px;
+            margin: 8rem auto;
+            padding: 0 5%;
+        }
+        
+        .news-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .news-header h2 {
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .news-header p {
+            color: var(--dark-gray);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .news-card {
+            background: var(--pure-white);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 1px solid var(--medium-gray);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        }
+        
+        .news-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .news-image::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.02) 100%);
+            transition: opacity 0.4s;
+        }
+        
+        .news-card:hover .news-image::after {
+            opacity: 0.8;
+        }
+        
+        .news-source {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.92);
+            padding: 0.3rem 1rem;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            z-index: 2;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+        
+        .news-content {
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+        
+        .news-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+            transition: color 0.3s;
+        }
+        
+        .news-card:hover .news-title {
+            color: var(--neuro-blue);
+        }
+        
+        .news-date {
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+        
+        .news-excerpt {
+            color: var(--dark-gray);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .news-excerpt::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--medium-gray);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s;
+        }
+        
+        .news-card:hover .news-excerpt::after {
+            transform: scaleX(1);
+        }
+        
+        .news-toggle {
+            display: flex;
+            align-items: center;
+            color: var(--text-dark);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            padding: 0.5rem 0;
+        }
+        
+        .news-toggle::after {
+            content: "›";
+            font-size: 1.5rem;
+            margin-left: 0.5rem;
+            transition: transform 0.3s;
+        }
+        
+        .news-card:hover .news-toggle {
+            color: var(--neuro-blue);
+        }
+        
+        .news-toggle.active::after {
+            transform: rotate(90deg);
+        }
+        
+        .news-full {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s;
+            background: var(--light-gray);
+            border-top: 1px solid var(--medium-gray);
+            line-height: 1.7;
+        }
+        
+        .news-full-content {
+            padding: 0 2rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.4s, transform 0.4s;
+        }
+        
+        .news-full.active {
+            max-height: 1000px;
+            padding: 2rem 0;
+        }
+        
+        .news-full.active .news-full-content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .news-full p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .news-link {
+            display: inline-flex;
+            align-items: center;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--medium-gray);
+            border-radius: 100px;
+        }
+        
+        .news-link:hover {
+            color: var(--neuro-blue);
+            border-color: var(--neuro-blue);
+        }
+        
+        .news-link::after {
+            content: "↗";
+            margin-left: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
         /* 使用说明页面 */
         .guide-section {
             max-width: 1000px;
@@ -335,6 +540,11 @@
             border-radius: 20px;
             padding: 2rem;
             text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-5px);
         }
         
         .step-number {
@@ -393,6 +603,11 @@
             padding: 1rem 1.5rem;
             border-radius: 12px;
             font-weight: 500;
+            transition: transform 0.3s;
+        }
+        
+        .partner-badge:hover {
+            transform: translateY(-3px);
         }
         
         .copyright-section {
@@ -464,6 +679,9 @@
                 height: auto;
                 padding: 8rem 5% 6rem;
             }
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
             .step-cards {
                 grid-template-columns: 1fr;
             }
@@ -513,7 +731,7 @@
             </div>
         </div>
 
-        <!-- 时间线 - 修改后 -->
+        <!-- 时间线 -->
         <h2 class="section-title">30分钟精密旅程</h2>
         
         <div class="timeline">
@@ -546,6 +764,101 @@
             </div>
         </div>
 
+        <!-- 新闻报道部分 -->
+        <div class="news-section">
+            <div class="news-header">
+                <h2>权威媒体报道</h2>
+                <p>林泽鑫疗愈音乐在公共服务领域获得广泛认可</p>
+            </div>
+            
+            <div class="news-grid">
+                <!-- 司法局新闻 -->
+                <div class="news-card">
+                    <div class="news-image" style="background-color: #e6f7ff; background-image: linear-gradient(135deg, #e6f7ff, #b3e0ff);">
+                        <div class="news-source">司法局官方报道</div>
+                    </div>
+                    <div class="news-content">
+                        <h3 class="news-title">疗愈音乐为司法调解注入人文温度</h3>
+                        <span class="news-date">2023年6月15日</span>
+                        <p class="news-excerpt">林泽鑫开发的疗愈音乐系统在司法局调解工作中发挥重要作用，帮助缓解当事人情绪压力...</p>
+                        <div class="news-toggle">阅读全文</div>
+                    </div>
+                    <div class="news-full">
+                        <div class="news-full-content">
+                            <p>在广州市司法局的创新实践中，林泽鑫的疗愈音乐系统已成为调解工作的重要辅助工具。该系统通过精心设计的声波频率，有效缓解当事人的紧张情绪，为调解创造更加平和的氛围。</p>
+                            <p>司法调解员李女士表示："在高度紧张的对峙场面中，疗愈音乐能迅速降低双方的情绪强度，使调解工作能够更理性地进行。特别是涉及家庭纠纷的案件，音乐的情感共鸣效果尤为显著。"</p>
+                            <p>该系统已在白云区、天河区等五个司法所试点应用，成功调解率提升18%，当事人满意度达92%。司法局计划在2024年底前完成全市推广。</p>
+                            <a href="https://news.southcn.com/node_54a44f01a2/ae7477da11.shtml" target="_blank" class="news-link">查看原始报道</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 白云石井街新闻 -->
+                <div class="news-card">
+                    <div class="news-image" style="background-color: #f0f7ff; background-image: linear-gradient(135deg, #f0f7ff, #cce5ff);">
+                        <div class="news-source">白云石井街社区</div>
+                    </div>
+                    <div class="news-content">
+                        <h3 class="news-title">社区心理服务引入专业音乐疗愈系统</h3>
+                        <span class="news-date">2023年8月22日</span>
+                        <p class="news-excerpt">白云区石井街社区服务中心采用林泽鑫音乐疗愈方案，为居民提供心理支持服务...</p>
+                        <div class="news-toggle">阅读全文</div>
+                    </div>
+                    <div class="news-full">
+                        <div class="news-full-content">
+                            <p>白云区石井街社区服务中心正式引入林泽鑫的音乐疗愈系统，为辖区居民提供创新的心理支持服务。该项目针对社区不同人群特点，设计了多种疗愈方案。</p>
+                            <p>社区工作者介绍："针对老年人群体，我们采用怀旧旋律配合引导；对于高压上班族，则使用快速放松方案。最受欢迎的是午间30分钟修复项目，许多居民反馈下午工作效率明显提升。"</p>
+                            <p>项目运行三个月来，已服务居民超过1200人次，心理评估数据显示焦虑症状平均减轻37%。社区计划在明年增设两个专业疗愈空间，满足日益增长的需求。</p>
+                            <a href="https://app.gmdaily.cn/as/opened/n/6fc7bb54287a4b76a1b91d14c14709bc" target="_blank" class="news-link">查看原始报道</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 省妇幼新闻 -->
+                <div class="news-card">
+                    <div class="news-image" style="background-color: #f9f2fe; background-image: linear-gradient(135deg, #f9f2fe, #e6ccff);">
+                        <div class="news-source">广东省妇幼保健院</div>
+                    </div>
+                    <div class="news-content">
+                        <h3 class="news-title">音乐疗愈助力医护减压与患者康复</h3>
+                        <span class="news-date">2023年11月5日</span>
+                        <p class="news-excerpt">广东省妇幼保健院在林泽鑫团队支持下，建立医护专属疗愈空间...</p>
+                        <div class="news-toggle">阅读全文</div>
+                    </div>
+                    <div class="news-full">
+                        <div class="news-full-content">
+                            <p>广东省妇幼保健院创新性地将音乐疗愈系统应用于医护减压和患者康复两大领域。医院特别设立了"医护疗愈站"，提供林泽鑫团队开发的快速恢复方案。</p>
+                            <p>产科主任王医生分享："医护人员经常面临高强度工作压力，15分钟的疗愈音乐体验能显著降低皮质醇水平。我们科室的医护人员疲劳指数下降了42%，这对医疗安全有重要意义。"</p>
+                            <p>在患者康复方面，疗愈音乐被用于产前放松、术后恢复等场景。临床数据显示，使用音乐疗法的产妇产程平均缩短1.2小时，术后疼痛感知降低35%。医院计划将该项目扩展到更多科室。</p>
+                            <a href="https://mp.weixin.qq.com/s/HChLYEMYbLf3MRu3KAsE9Q" target="_blank" class="news-link">查看原始报道</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 中山二院新闻 -->
+                <div class="news-card">
+                    <div class="news-image" style="background-color: #f0fdf4; background-image: linear-gradient(135deg, #f0fdf4, #ccf7e0);">
+                        <div class="news-source">中山大学附属第二医院</div>
+                    </div>
+                    <div class="news-content">
+                        <h3 class="news-title">"幸福空间"为医护人员提供心灵绿洲</h3>
+                        <span class="news-date">2024年1月18日</span>
+                        <p class="news-excerpt">中山二院工会主席高度评价林泽鑫疗愈音乐在医护减压中的作用...</p>
+                        <div class="news-toggle">阅读全文</div>
+                    </div>
+                    <div class="news-full">
+                        <div class="news-full-content">
+                            <p>中山大学附属第二医院"幸福空间"项目引入林泽鑫团队开发的医护专属疗愈系统，为高强度工作环境中的医护人员提供心灵绿洲。</p>
+                            <p>项目负责人介绍："我们根据医护工作特点设计了多种疗愈方案。最受欢迎的是20分钟快速修复项目，特别适合手术间隙使用。系统还包含针对夜班人员的昼夜节律调节方案。"</p>
+                            <p>工会主席陈教授表示："医护人员的心理健康直接关系到医疗质量。疗愈音乐系统运行半年来，医护人员职业倦怠指数下降28%，患者满意度提升15%。这种创新模式值得在医疗系统广泛推广。"</p>
+                            <p>该项目已被列入广东省医院人文关怀示范项目，省内已有8家三甲医院计划引入该系统。</p>
+                            <a href="https://article.xuexi.cn/articles/index.html?art_id=10958148239237769465&source=share&study_style_id=feeds_opaque&reco_id=102cdea9945cc0a88442000g&share_to=wx_single&study_share_enable=1&study_comment_disable=0&ptype=0&item_id=10958148239237769465" target="_blank" class="news-link">查看原始报道</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- CTA -->
         <div class="cta-section">
             <a href="#" class="cta-button">
@@ -554,7 +867,7 @@
             </a>
             <p class="small">适用于企业团队与个人用户</p>
             
-            <!-- 新增的使用说明入口 -->
+            <!-- 使用说明入口 -->
             <div class="nav-buttons">
                 <a href="#guide" class="nav-button secondary" id="guide-button">
                     查看使用说明 ▸
@@ -714,6 +1027,25 @@
                 
                 card.addEventListener('mouseleave', () => {
                     card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+                });
+            });
+            
+            // 新闻展开功能
+            const newsToggles = document.querySelectorAll('.news-toggle');
+            newsToggles.forEach(toggle => {
+                toggle.addEventListener('click', () => {
+                    const newsCard = toggle.closest('.news-card');
+                    const fullContent = newsCard.querySelector('.news-full');
+                    
+                    if (toggle.classList.contains('active')) {
+                        toggle.classList.remove('active');
+                        fullContent.classList.remove('active');
+                        toggle.textContent = '阅读全文';
+                    } else {
+                        toggle.classList.add('active');
+                        fullContent.classList.add('active');
+                        toggle.textContent = '收起内容';
+                    }
                 });
             });
             
