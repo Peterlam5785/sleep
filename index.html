@@ -170,7 +170,7 @@
             font-weight: 500;
         }
         
-        /* 时间线 */
+        /* 时间线 - 修改后 */
         .timeline {
             display: flex;
             max-width: 1200px;
@@ -197,13 +197,6 @@
             width: 100%;
             height: 4px;
             background: var(--color);
-        }
-        .phase em {
-            display: block;
-            font-size: 1.25rem;
-            font-style: normal;
-            color: var(--dark-gray);
-            margin-bottom: 1rem;
         }
         .phase h4 {
             font-family: var(--type-heading);
@@ -279,6 +272,170 @@
             font-size: 1.1rem;
         }
         
+        /* 使用说明页面 */
+        .guide-section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 6rem 5% 10rem;
+        }
+        
+        .guide-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .guide-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1.5rem;
+        }
+        
+        .guide-header p {
+            font-size: 1.25rem;
+            color: var(--dark-gray);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .guide-section h3 {
+            font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+            margin: 3rem 0 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+        
+        .guide-section ul {
+            padding-left: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        .guide-section li {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+        
+        .guide-section li:before {
+            content: "•";
+            color: var(--neuro-blue);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
+        .step-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .step-card {
+            background: var(--light-gray);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .step-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--neuro-blue);
+            margin-bottom: 1rem;
+        }
+        
+        .step-card h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .testimonial {
+            background: var(--light-gray);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+        
+        .testimonial:before {
+            content: """;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 5rem;
+            color: var(--neuro-blue);
+            opacity: 0.1;
+            font-family: Georgia, serif;
+        }
+        
+        .testimonial p {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial .author {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        
+        .partners {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+            justify-content: center;
+        }
+        
+        .partner-badge {
+            background: var(--light-gray);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+        
+        .copyright-section {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--medium-gray);
+            color: var(--dark-gray);
+        }
+        
+        /* 导航按钮 */
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 3rem auto;
+            max-width: 800px;
+        }
+        
+        .nav-button {
+            display: inline-block;
+            background: var(--text-dark);
+            color: white;
+            font-family: var(--type-heading);
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 1px solid var(--text-dark);
+        }
+        
+        .nav-button.secondary {
+            background: transparent;
+            color: var(--text-dark);
+        }
+        
+        .nav-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
         /* 页脚 */
         footer {
             text-align: center;
@@ -307,100 +464,210 @@
                 height: auto;
                 padding: 8rem 5% 6rem;
             }
+            .step-cards {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- 英雄区 -->
-    <section class="hero">
-        <div class="floating-element element-1"></div>
-        <div class="floating-element element-2"></div>
-        <div class="floating-element element-3"></div>
+    <!-- 主页面内容 -->
+    <div id="main-page">
+        <!-- 英雄区 -->
+        <section class="hero">
+            <div class="floating-element element-1"></div>
+            <div class="floating-element element-2"></div>
+            <div class="floating-element element-3"></div>
+            
+            <div class="hero-content">
+                <h1>午休，<br>重新定义</h1>
+                <p class="subtitle">30分钟科学声场体验，让您的午休成为高效恢复的精密系统</p>
+                <a href="#" class="cta-button">
+                    体验明日科技
+                    <span>首周预约享特别权益</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- 价值主张 -->
+        <h2 class="section-title">精密设计的恢复体验</h2>
         
-        <div class="hero-content">
-            <h1>午休，<br>重新定义</h1>
-            <p class="subtitle">30分钟科学声场体验，让您的午休成为高效恢复的精密系统</p>
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-icon">💤</div>
+                <h3>深度神经放松</h3>
+                <p>专利声场引导技术，快速帮助大脑进入深度修复状态，优化脑波频率</p>
+                <span class="tag">临床验证效果</span>
+            </div>
+            <div class="card">
+                <div class="card-icon">🔄</div>
+                <h3>无缝恢复流程</h3>
+                <p>从放松到唤醒的精密时序控制，消除传统午休后的昏沉感</p>
+                <span class="tag">自然过渡设计</span>
+            </div>
+            <div class="card">
+                <div class="card-icon">🌍</div>
+                <h3>全球适用体验</h3>
+                <p>支持多语言引导系统，适应不同文化背景的恢复需求</p>
+                <span class="tag">17种语言可选</span>
+            </div>
+        </div>
+
+        <!-- 时间线 - 修改后 -->
+        <h2 class="section-title">30分钟精密旅程</h2>
+        
+        <div class="timeline">
+            <div class="phase" style="--color: var(--neuro-blue);"> 
+                <h4>神经解耦</h4>
+                <p>渐进式引导技术，快速释放工作压力，为深度休息做准备</p>
+            </div>
+            <div class="phase" style="--color: var(--accent-purple);"> 
+                <h4>核心修复</h4>
+                <p>优化声场环境，促进生理恢复与心理重置</p>
+            </div>
+            <div class="phase" style="--color: var(--calm-green);"> 
+                <h4>动能唤醒</h4>
+                <p>渐进式激活流程，恢复身体活力与思维清晰度</p>
+            </div>
+        </div>
+        
+        <!-- 多语言支持 -->
+        <div class="languages">
+            <h2>全球适用体验</h2>
+            <p>支持多语言引导系统，确保每位用户获得母语级的恢复体验</p>
+            <div class="language-list">
+                <div class="language">中文</div>
+                <div class="language">English</div>
+                <div class="language">日本語</div>
+                <div class="language">Español</div>
+                <div class="language">Deutsch</div>
+                <div class="language">Français</div>
+                <div class="language">한국어</div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-section">
             <a href="#" class="cta-button">
-                体验明日科技
-                <span>首周预约享特别权益</span>
+                开启科学午休
+                <span>限量预约进行中</span>
             </a>
+            <p class="small">适用于企业团队与个人用户</p>
+            
+            <!-- 新增的使用说明入口 -->
+            <div class="nav-buttons">
+                <a href="#guide" class="nav-button secondary" id="guide-button">
+                    查看使用说明 ▸
+                </a>
+            </div>
         </div>
-    </section>
-
-    <!-- 价值主张 -->
-    <h2 class="section-title">精密设计的恢复体验</h2>
-    
-    <div class="card-grid">
-        <div class="card">
-            <div class="card-icon">💤</div>
-            <h3>深度神经放松</h3>
-            <p>专利声场引导技术，8分钟内帮助大脑进入深度修复状态，优化脑波频率</p>
-            <span class="tag">临床验证效果</span>
-        </div>
-        <div class="card">
-            <div class="card-icon">🔄</div>
-            <h3>无缝恢复流程</h3>
-            <p>从放松到唤醒的精密时序控制，消除传统午休后的昏沉感</p>
-            <span class="tag">自然过渡设计</span>
-        </div>
-        <div class="card">
-            <div class="card-icon">🌍</div>
-            <h3>全球适用体验</h3>
-            <p>支持多语言引导系统，适应不同文化背景的恢复需求</p>
-            <span class="tag">17种语言可选</span>
-        </div>
-    </div>
-
-    <!-- 时间线 -->
-    <h2 class="section-title">30分钟精密旅程</h2>
-    
-    <div class="timeline">
-        <div class="phase" style="--color: var(--neuro-blue);"> 
-            <em>05:00</em>
-            <h4>神经解耦</h4>
-            <p>渐进式引导技术，快速释放工作压力，为深度休息做准备</p>
-        </div>
-        <div class="phase" style="--color: var(--accent-purple);"> 
-            <em>20:00</em>
-            <h4>核心修复</h4>
-            <p>优化声场环境，促进生理恢复与心理重置</p>
-        </div>
-        <div class="phase" style="--color: var(--calm-green);"> 
-            <em>05:00</em>
-            <h4>动能唤醒</h4>
-            <p>渐进式激活流程，恢复身体活力与思维清晰度</p>
-        </div>
+        
+        <!-- 页脚 -->
+        <footer>
+            <p>"将精密科学注入<br>每日的休憩时刻"</p>
+            <p class="copyright">午间重启舱 © 2025 | 科学恢复系统</p>
+        </footer>
     </div>
     
-    <!-- 多语言支持 -->
-    <div class="languages">
-        <h2>全球适用体验</h2>
-        <p>支持多语言引导系统，确保每位用户获得母语级的恢复体验</p>
-        <div class="language-list">
-            <div class="language">中文</div>
-            <div class="language">English</div>
-            <div class="language">日本語</div>
-            <div class="language">Español</div>
-            <div class="language">Deutsch</div>
-            <div class="language">Français</div>
-            <div class="language">한국어</div>
-        </div>
+    <!-- 使用说明页面 - 初始隐藏 -->
+    <div id="guide-page" style="display: none;">
+        <section class="guide-section">
+            <div class="guide-header">
+                <h2>午间疗愈30分钟｜疗愈音乐产品使用说明</h2>
+                <p>专为城市青年与高压人员设计，中山医院幸福空间首推疗愈项目</p>
+            </div>
+            
+            <h3>一、谁可以使用？</h3>
+            <ul>
+                <li>午休时间希望快速恢复的职场青年</li>
+                <li>感到焦虑、孤独或情绪低落的单身青年</li>
+                <li>医院医护人员专属空间（如：中山二院幸福空间）</li>
+                <li>社区心理关怀人群、青年服务站、司法调解所支持机构</li>
+                <li>瑜伽、普拉提、运动健身、公共机构等</li>
+                <li>高压人群</li>
+            </ul>
+            
+            <h3>二、音乐产品内容结构（总时长约30分钟）</h3>
+            <div class="card">
+                <div class="card-icon">🎵</div>
+                <h4>科学设计的疗愈流程</h4>
+                <p><strong>0:00–3:00</strong> 环境确认 + 倒数放松 + 身体扫描</p>
+                <p><strong>3:00–25:00</strong> 深度背景音乐疗愈（语言最少干扰）</p>
+                <p><strong>25:00–30:00</strong> 音乐唤醒 + 正数激活身体 + 结束祝语</p>
+                <p>语言引导十分简洁，仅在放松与唤醒时出现，减少干扰，更容易进入状态。</p>
+            </div>
+            
+            <h3>三、使用步骤（傻瓜式体验指南）</h3>
+            <p>只需要三步，像听歌一样简单！</p>
+            
+            <div class="step-cards">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h4>找空间</h4>
+                    <p>推荐午饭后或睡觉前，坐或躺在舒适角落，闭上眼</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h4>放音乐</h4>
+                    <p>戴上耳机/开启音箱/手机扩音，调整合适音量</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h4>享疗愈</h4>
+                    <p>安心休息30分钟，音乐自然引导放松与唤醒</p>
+                </div>
+            </div>
+            
+            <p><strong>使用频率：</strong>建议每周使用3–4次，情绪稳定、睡眠质量也会跟着改善。建议配合睡眠情绪日志记录效果。</p>
+            
+            <h3>四、专业背书 & 合作单位支持</h3>
+            <p>此疗愈音乐包已在以下单位试点并获得一致好评：</p>
+            <div class="partners">
+                <div class="partner-badge">中山大学附属第二医院「幸福空间」</div>
+                <div class="partner-badge">广东省妇幼保健院</div>
+                <div class="partner-badge">广州开发区人民医院</div>
+                <div class="partner-badge">街道社区心理支持</div>
+                <div class="partner-badge">司法所调解与情绪支持</div>
+            </div>
+            
+            <div class="testimonial">
+                <p>"疗愈不是高门槛，而是一个可以每天轻松进入的空间。"</p>
+                <p class="author">—— 中山二院工会主席</p>
+            </div>
+            
+            <h3>五、用户真实反馈（部分）</h3>
+            <div class="testimonial">
+                <p>"音乐引导很温柔，午休听完感觉像是去了短途旅行。"</p>
+            </div>
+            <div class="testimonial">
+                <p>"长期失眠竟然睡着了，可以。"</p>
+            </div>
+            <div class="testimonial">
+                <p>"我在社区青年活动用这个音频做放松练习，好多人都感动落泪。"</p>
+            </div>
+            <div class="testimonial">
+                <p>"作为医护人员，每天忙到头脑炸，在这个音乐放松让我找回自己。"</p>
+            </div>
+            <div class="testimonial">
+                <p>"司法局是一个特别的机构，面对工作对象，我们既要合法同时也要有温度，这个疗愈产品能很好支持我们的工作。"</p>
+            </div>
+            
+            <h3>六、版权说明</h3>
+            <p><strong>版权归属：</strong>本疗愈音乐内容由林泽鑫创作，保留全部版权。未经许可，禁止擅自复制、传播或用于商业用途。</p>
+            <p><strong>授权范围：</strong>本音乐包使用权限仅限于已获得授权的合作机构（如中山大学附属第二医院幸福空间、广东省妇幼保健院、广州开发区医院等），在其业务范围内进行公益推广与内部支持使用。</p>
+            
+            <div class="copyright-section">
+                <p>© 2025 午间疗愈音乐包 | 林泽鑫创作</p>
+            </div>
+            
+            <!-- 返回主页面按钮 -->
+            <div class="nav-buttons">
+                <a href="#main" class="nav-button" id="back-button">
+                    ◂ 返回主页面
+                </a>
+            </div>
+        </section>
     </div>
-
-    <!-- CTA -->
-    <div class="cta-section">
-        <a href="#" class="cta-button">
-            开启科学午休
-            <span>限量预约进行中</span>
-        </a>
-        <p class="small">适用于企业团队与个人用户</p>
-    </div>
-    
-    <!-- 页脚 -->
-    <footer>
-        <p>"将精密科学注入<br>每日的休憩时刻"</p>
-        <p class="copyright">午间重启舱 © 2025 | 科学恢复系统</p>
-    </footer>
 
     <script>
         // 增强浮动效果
@@ -448,6 +715,26 @@
                 card.addEventListener('mouseleave', () => {
                     card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
                 });
+            });
+            
+            // 页面切换功能
+            const guideButton = document.getElementById('guide-button');
+            const backButton = document.getElementById('back-button');
+            const mainPage = document.getElementById('main-page');
+            const guidePage = document.getElementById('guide-page');
+            
+            guideButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                mainPage.style.display = 'none';
+                guidePage.style.display = 'block';
+                window.scrollTo(0, 0);
+            });
+            
+            backButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                guidePage.style.display = 'none';
+                mainPage.style.display = 'block';
+                window.scrollTo(0, 0);
             });
         });
     </script>
