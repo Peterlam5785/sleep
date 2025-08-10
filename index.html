@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>午间重启舱 | 科学午休解决方案</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* 苹果风核心变量 - 白色主题 */
         :root {
@@ -28,6 +29,7 @@
             line-height: 1.5;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            padding-bottom: 90px; /* 为播放器留出空间 */
         }
         
         /* 脉动光晕动画 */
@@ -35,6 +37,217 @@
             0% { transform: translateY(0) rotate(0deg); }
             50% { transform: translateY(-15px) rotate(3deg); }
             100% { transform: translateY(0) rotate(0deg); }
+        }
+        
+        /* 播客播放器 */
+        .podcast-player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-top: 1px solid var(--medium-gray);
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
+            padding: 15px 5%;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .player-hidden {
+            transform: translateY(100%);
+        }
+        
+        .player-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--neuro-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 113, 227, 0.3);
+            z-index: 1001;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .player-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 7px 20px rgba(0, 113, 227, 0.4);
+        }
+        
+        .player-toggle .icon {
+            font-size: 24px;
+        }
+        
+        .player-content {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            gap: 20px;
+        }
+        
+        .player-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .player-title {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .player-subtitle {
+            font-size: 14px;
+            color: var(--dark-gray);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .control-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .control-btn:hover {
+            background: var(--medium-gray);
+        }
+        
+        .play-btn {
+            width: 50px;
+            height: 50px;
+            background: var(--neuro-blue);
+            color: white;
+        }
+        
+        .play-btn:hover {
+            background: #005bbd;
+        }
+        
+        .progress-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .progress-time {
+            font-size: 12px;
+            color: var(--dark-gray);
+            min-width: 40px;
+        }
+        
+        .progress-bar {
+            flex: 1;
+            height: 4px;
+            background: var(--medium-gray);
+            border-radius: 2px;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .progress-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: var(--neuro-blue);
+            border-radius: 2px;
+            width: 0%;
+        }
+        
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .volume-slider {
+            width: 80px;
+            height: 4px;
+            background: var(--medium-gray);
+            border-radius: 2px;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .volume-level {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: var(--neuro-blue);
+            border-radius: 2px;
+            width: 80%;
+        }
+        
+        .close-player {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--dark-gray);
+            cursor: pointer;
+            padding: 5px;
+        }
+        
+        .listen-option {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            gap: 15px;
+        }
+        
+        .listen-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 25px;
+            background: var(--light-gray);
+            border-radius: 12px;
+            border: 1px solid var(--medium-gray);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .listen-btn:hover {
+            background: var(--medium-gray);
+        }
+        
+        .listen-btn.active {
+            background: var(--neuro-blue);
+            color: white;
+            border-color: var(--neuro-blue);
         }
         
         /* 英雄区 */
@@ -685,6 +898,28 @@
             .step-cards {
                 grid-template-columns: 1fr;
             }
+            
+            .podcast-player {
+                flex-direction: column;
+                padding: 15px;
+            }
+            
+            .player-content {
+                width: 100%;
+            }
+            
+            .player-controls {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .progress-container {
+                width: 100%;
+            }
+            
+            .volume-control {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -704,6 +939,18 @@
                     体验明日科技
                     <span>首周预约享特别权益</span>
                 </a>
+                
+                <!-- 添加收听选项 -->
+                <div class="listen-option">
+                    <div class="listen-btn" id="listen-podcast">
+                        <i class="fas fa-headphones"></i>
+                        <span>收听播客</span>
+                    </div>
+                    <div class="listen-btn">
+                        <i class="fas fa-book"></i>
+                        <span>阅读内容</span>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -981,6 +1228,52 @@
             </div>
         </section>
     </div>
+    
+    <!-- 播客播放器 -->
+    <div class="podcast-player player-hidden">
+        <audio id="podcast-audio" preload="metadata">
+            <source src="https://p26-flow-sign.byteimg.com/tos-cn-i-ik7evvg4ik/rc/deep_research/3e366aaac0d44538b21e35d59ad65e4d?rcl=20250810181007D05C8E3F3BA609EEC0BC&rk3s=8e244e95&rrcfp=b2eaac72&x-expires=1755425563&x-signature=k%2FrmKTslOv4xHddlC8vMBdD2dZA%3D" type="audio/mpeg">
+            您的浏览器不支持音频播放。
+        </audio>
+        <div class="player-content">
+            <div class="player-info">
+                <div class="player-title">午间重启舱播客 | 科学午休的艺术</div>
+                <div class="player-subtitle">30分钟深度放松指南</div>
+            </div>
+            <div class="progress-container">
+                <span class="progress-time" id="current-time">0:00</span>
+                <div class="progress-bar" id="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <span class="progress-time" id="total-time">0:00</span>
+            </div>
+            <div class="player-controls">
+                <button class="control-btn" id="prev-btn">
+                    <i class="fas fa-step-backward"></i>
+                </button>
+                <button class="control-btn play-btn" id="play-btn">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button class="control-btn" id="next-btn">
+                    <i class="fas fa-step-forward"></i>
+                </button>
+                <div class="volume-control">
+                    <span><i class="fas fa-volume-up"></i></span>
+                    <div class="volume-slider" id="volume-slider">
+                        <div class="volume-level" id="volume-level"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="close-player" id="close-player">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    
+    <!-- 播放器切换按钮 -->
+    <button class="player-toggle" id="player-toggle">
+        <span class="icon"><i class="fas fa-play"></i></span>
+    </button>
 
     <script>
         // 增强浮动效果
@@ -1068,6 +1361,96 @@
                 mainPage.style.display = 'block';
                 window.scrollTo(0, 0);
             });
+            
+            // 播客播放器功能
+            const player = document.getElementById('podcast-audio');
+            const playBtn = document.getElementById('play-btn');
+            const playerToggle = document.getElementById('player-toggle');
+            const closePlayer = document.getElementById('close-player');
+            const podcastPlayer = document.querySelector('.podcast-player');
+            const progressBar = document.getElementById('progress-bar');
+            const progressFill = document.getElementById('progress-fill');
+            const currentTimeEl = document.getElementById('current-time');
+            const totalTimeEl = document.getElementById('total-time');
+            const volumeSlider = document.getElementById('volume-slider');
+            const volumeLevel = document.getElementById('volume-level');
+            const listenPodcastBtn = document.getElementById('listen-podcast');
+            
+            // 格式化时间显示
+            function formatTime(seconds) {
+                const minutes = Math.floor(seconds / 60);
+                const secs = Math.floor(seconds % 60);
+                return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+            }
+            
+            // 初始化播放器
+            function initPlayer() {
+                // 设置音量
+                player.volume = 0.8;
+                
+                // 更新总时间
+                player.addEventListener('loadedmetadata', () => {
+                    totalTimeEl.textContent = formatTime(player.duration);
+                });
+                
+                // 更新进度条
+                player.addEventListener('timeupdate', () => {
+                    const progress = (player.currentTime / player.duration) * 100;
+                    progressFill.style.width = `${progress}%`;
+                    currentTimeEl.textContent = formatTime(player.currentTime);
+                });
+                
+                // 点击进度条跳转
+                progressBar.addEventListener('click', (e) => {
+                    const pos = (e.pageX - progressBar.getBoundingClientRect().left) / progressBar.offsetWidth;
+                    player.currentTime = pos * player.duration;
+                });
+                
+                // 音量控制
+                volumeSlider.addEventListener('click', (e) => {
+                    const pos = (e.pageX - volumeSlider.getBoundingClientRect().left) / volumeSlider.offsetWidth;
+                    player.volume = pos;
+                    volumeLevel.style.width = `${pos * 100}%`;
+                });
+            }
+            
+            // 播放/暂停
+            playBtn.addEventListener('click', () => {
+                if (player.paused) {
+                    player.play();
+                    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                    podcastPlayer.classList.remove('player-hidden');
+                } else {
+                    player.pause();
+                    playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                }
+            });
+            
+            // 切换播放器显示
+            playerToggle.addEventListener('click', () => {
+                podcastPlayer.classList.toggle('player-hidden');
+                if (!podcastPlayer.classList.contains('player-hidden') && player.paused) {
+                    player.play();
+                    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                }
+            });
+            
+            // 关闭播放器
+            closePlayer.addEventListener('click', () => {
+                podcastPlayer.classList.add('player-hidden');
+                player.pause();
+                playBtn.innerHTML = '<i class="fas fa-play"></i>';
+            });
+            
+            // 英雄区收听播客按钮
+            listenPodcastBtn.addEventListener('click', () => {
+                podcastPlayer.classList.remove('player-hidden');
+                player.play();
+                playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            });
+            
+            // 初始化播放器
+            initPlayer();
         });
     </script>
 </body>
